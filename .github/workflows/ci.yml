@@ -27,6 +27,9 @@ jobs:
     - name: Run the app in Docker
       run: docker run -d -p 80:80 skakarla9/liatrio-app
 
+    - name: Check running containers and ports
+      run: docker ps 
+
     - name: Wait for the app to be ready
       run: sleep 10  
 
