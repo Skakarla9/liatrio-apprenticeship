@@ -22,10 +22,10 @@ jobs:
       run: npm install
 
     - name: Build Docker image
-      run: docker build -t skakarla9/your-app-name .
+      run: docker build -t skakarla9/liatrio-app
 
     - name: Run the app in Docker
-      run: docker run -d -p 80:80 skakarla9/your-app-name
+      run: docker run -d -p 80:80 skakarla9/liatrio-app
 
     - name: Wait for the app to be ready
       run: sleep 10  
@@ -34,7 +34,7 @@ jobs:
       run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
     - name: Push Docker image to Docker Hub
-      run: docker push your-dockerhub-username/your-app-name:latest
+      run: docker push skakarla9/liatrio-app:latest
 
   verify:
     runs-on: ubuntu-latest
