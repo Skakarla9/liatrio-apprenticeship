@@ -50,9 +50,12 @@ jobs:
 
     - name: Install dependencies
       run: npm install
+    
+    - name: Set working directory
+      run: cd ${{ github.workspace }}
 
     - name: Run Mocha tests
-      run: node index.js # Run the Mocha tests defined in index.js
+      run: node index.js 
 
     - name: Output test results
-      run: cat test-results.txt # Assuming the tests output to a file
+      run: cat test-results.txt 
