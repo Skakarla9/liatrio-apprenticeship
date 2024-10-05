@@ -28,7 +28,7 @@ jobs:
       run: docker run -d -p 80:80 skakarla9/liatrio-app
 
     - name: Wait for the app to be ready
-      run: sleep 10  
+      run: sleep 10
 
     - name: Log in to Docker Hub
       run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
@@ -43,19 +43,22 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Set up Node.js
+    - name: Clone Test Cases Repository
+      run: git clone https://github.com/liatrio/github-actions.git
+
+    - name: Navigate to Test Directory
+      run: cd github-actions/apprentice-action
+
+    - name: Set up Node.js in the Test Repository
       uses: actions/setup-node@v2
       with:
         node-version: '16'
 
-    - name: Install dependencies
+    - name: Install dependencies for the tests
       run: npm install
-    
-    - name: Set working directory
-      run: cd ${{ github.workspace }}
 
     - name: Run Mocha tests
-      run: node index.js 
+      run: node index.js # This will run the tests using Mocha from the apprentice-action folder
 
     - name: Output test results
-      run: cat test-results.txt 
+      run: cat test-results.txt
