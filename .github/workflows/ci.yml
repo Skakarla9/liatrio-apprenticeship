@@ -51,6 +51,9 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: '16'
+
+    - name: Run Liatrio's apprentice-action
+      uses: liatrio/github-actions/apprentice-action@master
         
     - name: Wait for the app to be ready
       run: sleep 10
