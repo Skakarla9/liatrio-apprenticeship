@@ -54,9 +54,12 @@ jobs:
     - name: Run Mocha tests
       run: |
         cd github-actions/apprentice-action
-        node index.js # Run tests using Mocha from the apprentice-action folder
+        node index.js 
 
     - name: Output test results
       run: |
         cd github-actions/apprentice-action
-        cat test-results.txt
+        cat *.log
+
+
+        
