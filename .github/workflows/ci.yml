@@ -22,7 +22,7 @@ jobs:
       run: npm install
 
     - name: Build Docker image
-      run: docker build -t skakarla9/liatrio-app
+      run: docker build -t skakarla9/liatrio-app .
 
     - name: Run the app in Docker
       run: docker run -d -p 80:80 skakarla9/liatrio-app
