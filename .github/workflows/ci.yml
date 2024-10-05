@@ -55,6 +55,5 @@ jobs:
     - name: Wait for the app to be ready
       run: sleep 10
 
-    - name: Run Liatrio's apprentice-action
-      uses: liatrio/github-actions/apprentice-action@master
+    
     
