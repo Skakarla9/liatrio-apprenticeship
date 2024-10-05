@@ -16,7 +16,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '16'
+        node-version: '16'  # Specify the Node.js version
 
     - name: Install dependencies
       run: npm install
@@ -24,14 +24,14 @@ jobs:
     - name: Build Docker image
       run: docker build -t liatrio-app .
 
-    - name: Run the app in Docker
-      run: docker run -d -p 80:80 liatrio-app  # Running the app on port 80
+    - name: Run the app in Docker (detached)
+      run: docker run -d -p 80:80 liatrio-app  # Run the app on port 80
 
     - name: Log in to Docker Hub
       run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
     - name: Push Docker image to Docker Hub
-      run: docker push your-dockerhub-username/liatrio-app:latest
+      run: docker push skakarla/liatrio-app:latest
 
   verify:
     runs-on: ubuntu-latest
@@ -43,7 +43,13 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '16'
+        node-version: '16'  # Ensure Node.js version is consistent
 
     - name: Run Liatrio's apprentice-action
       uses: liatrio/github-actions/apprentice-action@master
+
+    - name: Run tests
+      run: |
+        docker run -d -p 80:80 liatrio-app  # Ensure app is running on port 80
+        sleep 10  # Wait for the app to initialize
+        npm test  # Run the tests
