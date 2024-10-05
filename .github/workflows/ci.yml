@@ -26,13 +26,6 @@ jobs:
 
     - name: Run the app in Docker
       run: docker run -d -p 80:80 --network host skakarla9/liatrio-app
-    
-  verify:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
 
     - name: Clone Test Cases Repository
       run: git clone https://github.com/liatrio/github-actions.git
@@ -51,5 +44,6 @@ jobs:
       run: |
         cd github-actions/apprentice-action
         cat *.log
+    
 
-
+    
