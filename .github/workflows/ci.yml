@@ -44,6 +44,11 @@ jobs:
       run: |
         cd github-actions/apprentice-action
         cat *.log
-    
+    - name: Log in to Docker Hub
+      run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+    - name: Push Docker image to Docker Hub
+      run: docker push skakarla9/liatrio-app:latest
+      
 
     
