@@ -37,8 +37,7 @@ jobs:
 
     - name: Modify the test case for minified JSON
       run: |
-        sed -i 's/expect(JSON.stringify(res.data)).toBe/expect(JSON.stringify(res.data)).to.equal/' github-actions/apprentice-action/tests/endpoint.test.js
-
+       sed -i 's/Object(...)/JSON.stringify/' github-actions/apprentice-action/tests/endpoint.test.js
     - name: Install test dependencies (if needed)
       run: cd github-actions/apprentice-action && npm install
 
