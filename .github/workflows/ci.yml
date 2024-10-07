@@ -29,7 +29,7 @@ jobs:
 
     - name: Fix the test case for minified JSON in CI/CD
       run: |
-        sed -i 's/throw new Error("TypeError: Object(...) is not a function");/const expectedResponse = JSON.stringify({ message: "My name is ...", timestamp: res.data.timestamp }); expect(JSON.stringify(res.data)).toBe(expectedResponse);/' tests/endpoint.test.js
+        sed -i 's/throw new Error("TypeError: Object(...) is not a function");/const expectedResponse = JSON.stringify({ message: "My name is ...", timestamp: res.data.timestamp }); expect(JSON.stringify(res.data)).toBe(expectedResponse);/' github-actions/apprentice-action/tests/endpoint.test.js
 
     - name: Run Liatrio Apprentice Action
       uses: liatrio/github-actions/apprentice-action@v1.0.0
