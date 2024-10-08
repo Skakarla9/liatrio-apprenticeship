@@ -34,7 +34,7 @@ jobs:
 
     # Step 6: Use Liatrio’s Composite Action to run tests
     - name: Run Liatrio Apprentice Action
-      uses: liatrio/github-actions/apprentice-action@7208146c9ce4749b4ff44ff8030d953a578fa209
+      uses: liatrio/github-actions/apprentice-action@0b41561cca6822cc8d880fe0e49e7807a41fdf91
 
     # Step 6.2: Run  tests
     - name: Run Tests
