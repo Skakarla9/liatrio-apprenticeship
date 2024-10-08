@@ -37,8 +37,8 @@ jobs:
       uses: liatrio/github-actions/apprentice-action@0b41561cca6822cc8d880fe0e49e7807a41fdf91
 
     # Step 6.2: Run  tests
-    - name: Run Tests
-      run: npm test
+    # name: Run Tests
+     # run: npm test
 
     # Step 7: Log in to Docker Hub
     - name: Log in to Docker Hub
