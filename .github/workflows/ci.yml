@@ -36,10 +36,10 @@ jobs:
     - name: Run Liatrio Apprentice Action
       uses: liatrio/github-actions/apprentice-action@master
 
-    # Step 6.1: Modify the problematic test case (remove error throwing and add a valid test)
-    #- name: Fix the test case that throws an error
-     # run: |
-       # sed -i 's/throw new Error("TypeError: Object(...) is not a function");/try { const expectedResponse = JSON.stringify({ Message: "My name is ...", Timestamp: Math.floor(Date.now() / 1000) }); expect(JSON.stringify(res.data)).toBe(expectedResponse); } catch (error) { console.error("Error occurred in test:", error); }/' tests/endpoint.test.js
+    - name: Run Tests
+      run: npm test
+      continue-on-error: true
+      
     # Step 6.2: Run  tests
     - name: Run Tests
       run: npm test
