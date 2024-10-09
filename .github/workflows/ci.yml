@@ -10,40 +10,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # Step 1: Checkout repository
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    # Step 2: Set up Node.js environment
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
         node-version: '20'
 
-    # Step 3: Install dependencies
     - name: Install dependencies
       run: npm install
 
-    # Step 4: Build Docker image
     - name: Build Docker image
       run: docker build -t skakarla9/liatrio-app .
 
-    # Step 5: Run the Docker container
     - name: Run the app in Docker
       run: docker run -d -p 80:80 --network host skakarla9/liatrio-app
 
-    # Step 6: Use Liatrio’s Composite Action to run tests
     - name: Run Liatrio Apprentice Action
       uses: liatrio/github-actions/apprentice-action@0b41561cca6822cc8d880fe0e49e7807a41fdf91
 
-    # Step 6.2: Run  tests
-    # name: Run Tests
-     # run: npm test
-
-    # Step 7: Log in to Docker Hub
     - name: Log in to Docker Hub
       run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
-    # Step 8: Push Docker image to Docker Hub
     - name: Push Docker image to Docker Hub
       run: docker push skakarla9/liatrio-app:latest
