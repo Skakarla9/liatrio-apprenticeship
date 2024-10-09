@@ -35,3 +35,25 @@ jobs:
 
     - name: Push Docker image to Docker Hub
       run: docker push skakarla9/liatrio-app:latest
+
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v1
+      with:
+        credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+    - name: Set up Google Cloud SDK
+      uses: google-github-actions/setup-gcloud@v1
+      with:
+        project_id: liatrio-app
+        install_components: 'kubectl'
+
+    - name: Push Docker image to Google Container Registry
+      run: docker push gcr.io/liatrio-app/liatrio-app
+
+    - name: Deploy to Cloud Run
+      run: |
+        gcloud run deploy liatrio-app \
+          --image gcr.io/liatrio-app/liatrio-app \
+          --platform managed \
+          --region ${{ secrets.GCP_REGION }} \
+          --allow-unauthenticated
