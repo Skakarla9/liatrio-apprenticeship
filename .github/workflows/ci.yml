@@ -25,7 +25,7 @@ jobs:
       run: docker build -t skakarla9/liatrio-app:latest .
 
     - name: Build Docker image for Google Container Registry (GCR)
-      run: docker build -t us-central1-docker.pkg.dev/liatrio-app/liatrio-app:latest
+      run: docker build -t us-central1-docker.pkg.dev/liatrio-app/liatrio-app:latest .
 
     - name: Run the app in Docker
       run: docker run -d -p 80:80 --network host skakarla9/liatrio-app:latest
