@@ -21,25 +21,34 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Build Docker image
-      run: docker build -t skakarla9/liatrio-app .
+   
+    - name: Build Docker image for Docker Hub
+      run: docker build -t skakarla9/liatrio-app:latest .
+
+    - name: Build Docker image for Google Container Registry (GCR)
+      run: docker build -t gcr.io/liatrio-app/liatrio-app:latest .
 
     - name: Run the app in Docker
-      run: docker run -d -p 80:80 --network host skakarla9/liatrio-app
+      run: docker run -d -p 80:80 --network host skakarla9/liatrio-app:latest
 
+   
     - name: Run Liatrio Apprentice Action
       uses: liatrio/github-actions/apprentice-action@0b41561cca6822cc8d880fe0e49e7807a41fdf91
 
+ 
     - name: Log in to Docker Hub
       run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
+    
     - name: Push Docker image to Docker Hub
       run: docker push skakarla9/liatrio-app:latest
+
 
     - name: Authenticate to Google Cloud
       uses: google-github-actions/auth@v1
       with:
         credentials_json: ${{ secrets.GCP_SA_KEY }}
+
 
     - name: Set up Google Cloud SDK
       uses: google-github-actions/setup-gcloud@v1
@@ -47,13 +56,15 @@ jobs:
         project_id: liatrio-app
         install_components: 'kubectl'
 
-    - name: Push Docker image to Google Container Registry
-      run: docker push gcr.io/liatrio-app/liatrio-app
 
+    - name: Push Docker image to Google Container Registry
+      run: docker push gcr.io/liatrio-app/liatrio-app:latest
+
+ 
     - name: Deploy to Cloud Run
       run: |
         gcloud run deploy liatrio-app \
-          --image gcr.io/liatrio-app/liatrio-app \
+          --image gcr.io/liatrio-app/liatrio-app:latest \
           --platform managed \
           --region ${{ secrets.GCP_REGION }} \
           --allow-unauthenticated
