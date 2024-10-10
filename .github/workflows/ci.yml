@@ -48,7 +48,7 @@ jobs:
         install_components: 'kubectl'
 
     - name: Push Docker image to Google Container Registry
-      run: docker push gcr.io/liatrio-app/liatrio-app:latest
+      run:  docker push us-central1-docker.pkg.dev/liatrio-app/liatrio-app:latest
 
     - name: Deploy to Cloud Run
       run: |
