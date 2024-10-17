@@ -22,10 +22,10 @@ jobs:
       run: npm install
 
     - name: Build Docker image for Google Container Registry (GCR)
-      run: docker build -t gcr.io/liatrio-app/liatrio-app:latest .
+      run: docker build -t us-west2-docker.pkg.dev/liatrio-app/sliatrio:latest .
 
     - name: Run the app in Docker
-      run: docker run -d -p 80:80 --network host gcr.io/liatrio-app/liatrio-app:latest 
+      run: docker run -d -p 80:80 --network host us-west2-docker.pkg.dev/liatrio-app/sliatrio:latest 
 
     - name: Run Liatrio Apprentice Action
       uses: liatrio/github-actions/apprentice-action@0b41561cca6822cc8d880fe0e49e7807a41fdf91
@@ -43,24 +43,21 @@ jobs:
       with:
         project_id: liatrio-app
         install_components: 'kubectl'
-        
+    
     - name: "Use gcloud CLI"
       run: "gcloud info"
 
-    - name: "Use gcloud"
-      run: "gcloud artifacts repositories list --project=liatrio-app --location=us"
-
     - name: "Docker auth"
       run: |-
-        gcloud auth configure-docker us-docker.pkg.dev --quiet
+        gcloud auth configure-docker us-west2-docker.pkg.dev --quiet
 
     - name: Push Docker image to Google Container Registry
-      run:  docker push gcr.io/liatrio-app/liatrio-app:latest
+      run:  docker push us-west2-docker.pkg.dev/liatrio-app/sliatrio:latest
 
     - name: Deploy to Cloud Run
       run: |
         gcloud run deploy liatrio-app \
-          --image gcr.io/liatrio-app/liatrio-app:latest \
+          --image us-west2-docker.pkg.dev/liatrio-app/sliatrio:latest \
           --platform managed \
           --region ${{ secrets.GCP_REGION }} \
           --allow-unauthenticated
