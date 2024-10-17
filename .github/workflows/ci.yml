@@ -43,9 +43,12 @@ jobs:
       with:
         project_id: liatrio-app
         install_components: 'kubectl'
-    
+        
     - name: "Use gcloud CLI"
       run: "gcloud info"
+
+    - name: "Use gcloud"
+      run: "gcloud artifacts repositories list --project=liatrio-app --location=us"
 
     - name: "Docker auth"
       run: |-
