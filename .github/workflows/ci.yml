@@ -22,10 +22,10 @@ jobs:
       run: npm install
 
     - name: Build Docker image for Google Container Registry (GCR)
-      run: docker build -t gcr.io/liatrio-app/liatrio-app:latest
+      run: docker build -t gcr.io/liatrio-app/liatrio-app:latest .
 
     - name: Run the app in Docker
-      run: docker run -d -p 80:80 --network host gcr.io/liatrio-app/liatrio-app:latest
+      run: docker run -d -p 80:80 --network host gcr.io/liatrio-app/liatrio-app:latest 
 
     - name: Run Liatrio Apprentice Action
       uses: liatrio/github-actions/apprentice-action@0b41561cca6822cc8d880fe0e49e7807a41fdf91
