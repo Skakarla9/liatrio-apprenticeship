@@ -5,7 +5,7 @@ app.get('/', (req, res) => {
   const response = {
     message: 'My name is Sanchit Kakarla',
     timestamp: Date.now(),
-    version: 'version-2'
+    version: 'version-3'
   };
   res.json(response);
 });
